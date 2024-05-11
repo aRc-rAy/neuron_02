@@ -16,7 +16,7 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoiZXNwYWNlc2VydmljZSIsImEiOiJjbHZ1dHZjdTQwMDhrMm1uMnoxdWRibzQ4In0.NaprcMBbdX07f4eXXdr-lw";
 
 const Map = () => {
-  const { portData, ports } = useContext(Cart);
+  const { ports } = useContext(Cart);
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -39,8 +39,6 @@ const Map = () => {
     });
 
     map.current.on("style.load", () => {
-      // map.current.setFog({}); // Set the default atmosphere style
-
       map.current.addSource("points", {
         type: "geojson",
         data: ports,
@@ -51,10 +49,10 @@ const Map = () => {
         type: "circle",
         source: "points",
         paint: {
-          "circle-radius": 10,
+          "circle-radius": 4,
           "circle-stroke-width": 1,
-          "circle-color": "red",
-          "circle-stroke-color": "pink",
+          "circle-color": " #DF3C5F",
+          "circle-stroke-color": "black",
         },
       });
     });
@@ -65,35 +63,31 @@ const Map = () => {
         closeOnClick: false,
       });
 
-      console.log(popup);
-
       map.current.on("mouseenter", "points", (e) => {
-        // Change the cursor style as a UI indicator.
         map.current.getCanvas().style.cursor = "pointer";
 
-        // Copy coordinates array.
+        // console.log(e);
         const coordinates = e.features[0].geometry.coordinates.slice();
         const description = e.features[0].properties.description;
 
-        console.log(coordinates);
-        console.log(e);
+        console.log(description);
 
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
+        console.log(coordinates);
+
+        console.log(e.lngLat.lng);
+        console.log(e.lngLat.lat);
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
+        console.log(coordinates);
 
-        // Populate the popup and set its coordinates
-        // based on the feature found.
         popup.setLngLat(coordinates).setHTML(description).addTo(map.current);
       });
 
-      // map.current.on("mouseleave", "points", () => {
-      //   map.current.getCanvas().style.cursor = "";
-      //   popup.remove();
-      // });
+      map.current.on("mouseleave", "points", () => {
+        map.current.getCanvas().style.cursor = "";
+        popup.remove();
+      });
     });
 
     return () => {
@@ -101,14 +95,7 @@ const Map = () => {
     };
   }, [ports]);
 
-  return (
-    <div>
-      {/* <div className="sidebar"ports>
-				Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-			</div> */}
-      <div ref={mapContainer} className="map-container" id="map" />
-    </div>
-  );
+  return <div ref={mapContainer} id="map" className="mapboxgl-map"></div>;
 };
 
 export default Map;
