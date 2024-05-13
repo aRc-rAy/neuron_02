@@ -1,29 +1,26 @@
 const express = require("express");
 const app = express();
-const fs = express("fs");
-const exceltoJson = require("convert-excel-to-json");
 const cors = require("cors");
 const { getMinutes, modifyJsonObject } = require("./Functions/getKeyString.js");
+const excelToJson = require("convert-excel-to-json");
 const path = require("path");
 const dotenv = require("dotenv");
+const result = require("./port_geo_location.json");
 
 dotenv.config();
-
 app.use(cors());
 
-const result = exceltoJson({
-	sourceFile:
-		"https://github.com/aRc-rAy/neuron_02/blob/main/server/port_geo_location.xlsx",
-	columnToKey: {
-		A: "portname",
-		B: "latitude",
-		C: "longitude",
-	},
+result.forEach((port) => {
+	port["portname"] = port["port_name"];
+	port["latitude"] = port["geo_location_latitude"];
+	port["longitude"] = port["geo_location_longitude"];
+	delete port["port_name"];
+	delete port["geo_location_latitude"];
+	delete port["geo_location_longitude"];
 });
 
-const ships = exceltoJson({
-	sourceFile:
-		"https://github.com/aRc-rAy/neuron_02/blob/main/server/port_geo_location.xlsx",
+const ships = excelToJson({
+	sourceFile: "./geo_stats_data_7_days.xlsx",
 	columnToKey: {
 		A: "ship_name",
 		B: "latitude",
@@ -46,6 +43,8 @@ const modifiedJson = modifyJsonObject(
 	convertDateToMinutes
 );
 
+// console.log(modifiedJson);
+
 // -============== Deploy ======================
 let __dirname1 = path.resolve();
 
@@ -60,7 +59,7 @@ if (process.env.NODE_ENV === "production") {
 	});
 } else {
 	app.listen(5000, () => {
-		console.log("Server is runnig 😍😎");
+		console.log("Server is running 😍😎");
 	});
 }
 
@@ -70,10 +69,9 @@ app.get("/shipdata", (req, res) => {
 	const currentDate = new Date();
 	const minute = getMinutes(currentDate);
 	const array = [];
-	// console.log(minute);
+
 	modifiedJson.geo_stats.forEach((element) => {
 		if (element.minutes === minute) {
-			// console.log(element);
 			array.push(element);
 		}
 	});
