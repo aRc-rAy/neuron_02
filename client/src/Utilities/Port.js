@@ -1,5 +1,4 @@
 const createJson = (data) => {
-  console.log("data", data);
   const ports = data?.map((port) => {
     return {
       type: "Feature",
@@ -8,7 +7,7 @@ const createJson = (data) => {
         coordinates: [port?.longitude, port?.latitude],
       },
       properties: {
-        description: `<p>${port?.portname}</p>`,
+        description: `<p> Port name: ${port?.portname}</p>`,
       },
     };
   });
