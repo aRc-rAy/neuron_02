@@ -13,9 +13,13 @@ const Context = ({ children }) => {
 	useEffect(() => {
 		const Fetch = async () => {
 			try {
-				const { data } = await axios.get("http://localhost:5000/portdata");
+				const { data } = await axios.get(
+					"https://neuron-02.onrender.com/portdata"
+				);
 
-				const result = await axios.get("http://localhost:5000/shipdata");
+				const result = await axios.get(
+					"https://neuron-02.onrender.com/shipdata"
+				);
 				const shipLocation = createJsonShip(result.data.result);
 
 				const responseTimeZone = await axios.get(
@@ -36,7 +40,9 @@ const Context = ({ children }) => {
 		};
 		setInterval(async () => {
 			try {
-				const result = await axios.get("http://localhost:5000/shipdata");
+				const result = await axios.get(
+					"https://neuron-02.onrender.com/shipdata"
+				);
 				const shipLocation = createJsonShip(result.data.result);
 
 				setShips(shipLocation);
