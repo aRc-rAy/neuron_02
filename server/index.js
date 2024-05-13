@@ -51,17 +51,17 @@ let __dirname1 = path.resolve();
 let pathSegments = path.dirname(__dirname1).split(path.sep);
 __dirname1 = path.join(...pathSegments);
 
-if (process.env.NODE_ENV === "production") {
+// if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
 	app.get("*", (req, res) => {
 		res.sendFile(path.resolve(__dirname1, "frontend/build/index.html"));
 	});
-} else {
-	app.listen(5000, () => {
-		console.log("Server is running 😍😎");
-	});
-}
+// } else {
+// 	app.listen(5000, () => {
+// 		console.log("Server is running 😍😎");
+// 	});
+// }
 
 // =============== Deploy -=====================
 
