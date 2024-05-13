@@ -68,10 +68,10 @@ app.get("/shipdata", (req, res) => {
 	const currentDate = new Date();
 	const minute = getMinutes(currentDate);
 	const array = [];
-	console.log(minute);
+	// console.log(minute);
 	modifiedJson.geo_stats.forEach((element) => {
 		if (element.minutes === minute) {
-			console.log(element);
+			// console.log(element);
 			array.push(element);
 		}
 	});
