@@ -1,0 +1,24 @@
+{
+	"name": "01_neuron",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix server && npm install --legacy-peer-deps --prefix client && npm run build --prefix client && npm start --prefix server "
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/aRc-rAy/neuron_02.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/aRc-rAy/neuron_02/issues"
+	},
+	"homepage": "https://github.com/aRc-rAy/neuron_02#readme",
+	"dependencies": {
+		"dotenv": "^16.4.5"
+	}
+}
