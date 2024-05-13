@@ -1,0 +1,50 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.leftSide {
+  width: 30%;
+  height: 100vh;
+  padding: 10px;
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(143, 143, 238),
+    rgb(177, 114, 177),
+    rgb(152, 126, 76),
+    rgb(136, 136, 75)
+  );
+  display: flex;
+  flex-direction: column;
+}
+.middle {
+  width: 70%;
+  height: 100vh;
+  position: relative;
+}
+
+.zoneHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-top: 10px solid rgb(2, 38, 67);
+  border-radius: 20px;
+  width: 100%;
+  color: rgb(39, 22, 22);
+}
+
+#show-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  height: 30px;
+  width: fit-content;
+}
