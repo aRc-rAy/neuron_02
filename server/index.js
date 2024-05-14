@@ -46,16 +46,16 @@ const convertDateToMinutes = (value) =>
 // console.log(modifiedJson);
 
 // -============== Deploy ======================
-let __dirname1 = path.resolve();
-
-let pathSegments = path.dirname(__dirname1).split(path.sep);
-__dirname1 = path.join(...pathSegments);
+const dirname1 = path.resolve();
+const pathArray = dirname1.split("\\");
+pathArray.pop();
+const newDirName = path.join(...pathArray);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname1, "client", "build")));
+	app.use(express.static(path.join(newDirName, "client", "build")));
 
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"));
+		res.sendFile(path.resolve(newDirName, "client", "build", "index.html"));
 	});
 
 	console.log("app is running");
