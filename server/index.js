@@ -19,16 +19,16 @@ result.forEach((port) => {
 	delete port["geo_location_longitude"];
 });
 
-const ships = excelToJson({
-	sourceFile: "./geo_stats_data_7_days.xlsx",
-	columnToKey: {
-		A: "ship_name",
-		B: "latitude",
-		C: "longitude",
-		D: "heading",
-		E: "timestamp",
-	},
-});
+// const ships = excelToJson({
+// 	sourceFile: "./geo_stats_data_7_days.xlsx",
+// 	columnToKey: {
+// 		A: "ship_name",
+// 		B: "latitude",
+// 		C: "longitude",
+// 		D: "heading",
+// 		E: "timestamp",
+// 	},
+// });
 
 const convertDateToMinutes = (value) =>
 	Math.floor(
@@ -36,12 +36,12 @@ const convertDateToMinutes = (value) =>
 			(60 * 1000)
 	);
 
-const modifiedJson = modifyJsonObject(
-	ships,
-	"timestamp",
-	"minutes",
-	convertDateToMinutes
-);
+// const modifiedJson = modifyJsonObject(
+// 	ships,
+// 	"timestamp",
+// 	"minutes",
+// 	convertDateToMinutes
+// );
 
 console.log(modifiedJson);
 
@@ -70,11 +70,11 @@ app.get("/shipdata", (req, res) => {
 	const minute = getMinutes(currentDate);
 	const array = [];
 
-	modifiedJson.geo_stats.forEach((element) => {
-		if (element.minutes === minute) {
-			array.push(element);
-		}
-	});
+	// modifiedJson.geo_stats.forEach((element) => {
+	// 	if (element.minutes === minute) {
+	// 		array.push(element);
+	// 	}
+	// });
 
 	res.status(200).json({ result: array });
 });
