@@ -43,7 +43,7 @@ const convertDateToMinutes = (value) =>
 // 	convertDateToMinutes
 // );
 
-console.log(modifiedJson);
+// console.log(modifiedJson);
 
 // -============== Deploy ======================
 let __dirname1 = path.resolve();
